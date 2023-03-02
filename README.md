@@ -10,9 +10,9 @@ Unfortunately, when using MS Windows to copy media files, the order is totally r
 Crude, but effective solution to that problem is to write the files in predefined order.
 
 This program is the solution. So, how does it work?
-1. Use __**order**__ command to create a file consisting of entries to copy
+1. Use __**order**__ command to create a file consisting of entries to copy.
 2. Review the file and change the order at will.
-3. Use __**copy**__ command to copy the files in the order defined in the file
+3. Use __**copy**__ command to copy the files in the order defined in the file.
 
 General usage:
 ```shell
@@ -53,7 +53,7 @@ Creates a file with order definition
   -V, --version       Print version information and exit.
 ```
 
-The order command creates .\subaru-order.csv (can be changed if necessary) that contains the files from the DIR directories already pre-sorted.
+The order command creates ./subaru-order.csv (can be changed if necessary) that contains the files from the DIR directories already pre-sorted.
 Sorting is performed using natural order for directories and disk/track numbers for mp3 files.
 If you prefer or need to use natural order for mp3 files (i.e. ID3 tags are not present), use option --type=NATURAL.
 
