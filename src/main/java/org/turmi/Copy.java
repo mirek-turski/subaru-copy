@@ -18,7 +18,7 @@ public class Copy implements Runnable {
       description = "Input order file, defaults to ./subaru-order.csv.")
   String orderFile = "./subaru-order.csv";
 
-  @Option(names = {"-c", "--cleanspaces"}, paramLabel = "FILE",
+  @Option(names = {"-c", "--cleanspaces"},
       description = "Replaces spaces in target path with underscores.")
   boolean cleanSpaces = false;
 
