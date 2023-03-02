@@ -30,7 +30,7 @@ import picocli.CommandLine.Parameters;
 @Command(name = "order", description = "Creates a file with order definition", mixinStandardHelpOptions = true)
 public class Order implements Runnable {
 
-  public enum Type {NATURAL, TRACK};
+  public enum Type {NATURAL, TRACK}
 
   @Option(names = {"-t", "--type"}, paramLabel = "TYPE", description = "Order type, one of ${COMPLETION-CANDIDATES}.")
   Type type = Type.TRACK;
@@ -40,8 +40,12 @@ public class Order implements Runnable {
   String orderFile = "./subaru-order.csv";
 
   @Option(names = {"-m", "--mp3"},
-      description = "Include only files with mp3 extension")
+      description = "Include only files with mp3 extension.")
   boolean mp3Only = false;
+
+  @Option(names = {"-s", "--subdirs"},
+      description = "Process subdirectories instead.")
+  boolean subdirs = false;
 
   @Parameters(paramLabel = "DIR", arity = "1..*", description = "One or more directories to process.")
   List<Path> inDirs;
@@ -54,7 +58,10 @@ public class Order implements Runnable {
     inDirs.forEach(inDir -> {
       try (Stream<Path> stream = Files.walk(inDir)) {
         stream.filter(this::includeFile)
-            .forEach(path -> entries.put(path.toAbsolutePath().toString(), inDir.toAbsolutePath().toString()));
+            .forEach(path -> {
+              var baseDir = subdirs ? inDir.toAbsolutePath() : inDir.getParent().toAbsolutePath();
+              entries.put(path.toAbsolutePath().toString(), baseDir.toString());
+            });
       } catch (IOException ioex) {
         ioex.printStackTrace();
       }
